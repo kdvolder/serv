@@ -5,7 +5,10 @@
   "repository": "git@github.com:scothis/serv",
   "license": "MIT",
   "dependencies": {
-    "express": "~2.5"
+    "express": "~2.5",
+    "livereload-server": "~0.2",
+    //"rest": "~0.8", TODO - restore this when rest connection error handling is merged
+    "optimist": "~0.3"
   },
   "bin": { "serv": "./bin/serv.js" }
 }
