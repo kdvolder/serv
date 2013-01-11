@@ -1,7 +1,7 @@
 var http = require('http'),
 	express = require('express'),
 
-	path = process.cwd(),
+	path = process.argv[3] || process.cwd(),
 	host = '127.0.0.1',
 	port = process.argv[2],
 	lrserver = require('./lr-server'),

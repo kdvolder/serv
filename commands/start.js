@@ -34,8 +34,14 @@ function start(options) {
 	var url = options.url,
 		out = fs.openSync('./serv.log', 'a'),
 		err = fs.openSync('./serv.log', 'a'),
+		args = [ path.resolve(path.dirname(module.filename), '../static-server.js'), options.port ],
+		child;
 
-		child = spawn('node', [path.resolve(path.dirname(module.filename), '../static-server.js'), options.port], {
+		if (options.cwd) {
+			args.push(options.cwd);
+		}
+		
+		child = spawn('node', args, {
 			detached: true,
 			stdio: ['ignore', out, err]
 		});
