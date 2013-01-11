@@ -2,8 +2,9 @@ var fs = require('fs'),
 	path = require('path'),
 	open = require('open'),
 	errorCode = require('rest/interceptor/errorCode'),
+	timeout = require('rest/interceptor/timeout'),
 	retry = require('rest/interceptor/retry'),
-	client = retry(errorCode(), {maxTime: 5000}),
+	client = retry(timeout(errorCode(), {timeout: 1000}), {max: 200}),
 	spawn = require('child_process').spawn;
 
 function exec(options) {
@@ -11,7 +12,12 @@ function exec(options) {
 	options.url = "http://localhost:" + options.port;
 	ping(options).then(
 		function(response){
-			console.log("Server is already running at %s", options.url);
+			console.log("Server already running at %s", options.url);
+			var url = options.url;
+			if (options.path) {
+				url += options.path;
+			}
+			open(url);
 		},
 		function(error){
 			start(options);

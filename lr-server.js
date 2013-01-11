@@ -20,7 +20,7 @@ server.on('connected', function(connection) {
 
 server.on('disconnected', function(connection) {
 	console.log("Client disconnected (%s)", connection.id);
-	if (activeConnection.id = connection.id) {
+	if (activeConnection && activeConnection.id == connection.id) {
 		activeConnection = null;
 	}
 });
@@ -49,9 +49,15 @@ server.on('livereload.js', function(request, response) {
 });
 
 server.on('httprequest', function(url, request, response) {
-	if (url.pathname === '/reload' && activeConnection) {
-		activeConnection.send( { command: 'reload', path: url.query.path, liveCSS: true } );
-		console.log('Reloaded ' + url.query.path);
+	if (url.pathname === '/reload') {
+		console.log("Reload request received for %s", url.query.path);
+		if (activeConnection) {
+			activeConnection.send( { command: 'reload', path: url.query.path, liveCSS: true } );
+			console.log('Reloaded ' + url.query.path);
+		} else {
+			console.log("No active connection.");
+			response.writeHead(404);
+		}
 	} else {
 		response.writeHead(404);
 	}
