@@ -26,7 +26,7 @@ function exec(options) {
 }
 
 function ping(options) {
-	return client({ path: options.url+"/status" });
+	return client({ path: options.url+"/serv/status" });
 }
 
 function start(options) {

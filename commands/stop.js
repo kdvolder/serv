@@ -14,11 +14,11 @@ function exec(options) {
 }
 
 function ping(options) {
-	return client({ path: options.url+"/status" });
+	return client({ path: options.url+"/serv/status" });
 }
 
 function stop(options) {
-	client({path: options.url + '/status', method: 'PUT'}).then(
+	client({path: options.url + '/serv/status', method: 'PUT'}).then(
 		function(response) {
             console.log('Server at %s shut down successfully.', options.url);
         },
