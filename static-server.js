@@ -19,14 +19,14 @@ app.configure(function() {
 	}));
 });
 
-app.put("/status", function(request, response) {
+app.put("/serv/status", function(request, response) {
 	console.log("Shutting down...");
 	response.send(200);
 	// app.close();
 	process.exit();
 });
 
-app.get("/status", function(request, response) {
+app.get("/serv/status", function(request, response) {
 	response.send({'status': 'running', 'path': path}, 200);
 });
 
