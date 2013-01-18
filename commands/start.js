@@ -53,7 +53,9 @@ function start(options) {
 			if (options.path) {
 				url += options.path;
 			}
-			open(url);
+			if (!options.suppressOpen) {
+				open(url);
+			}
 		},
 		function(error){
 			console.log("Server failed to start - check serv.log for more information.");
