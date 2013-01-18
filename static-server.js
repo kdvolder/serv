@@ -22,12 +22,12 @@ app.configure(function() {
 app.put("/status", function(request, response) {
 	console.log("Shutting down...");
 	response.send(200);
-	app.close();
+	// app.close();
 	process.exit();
 });
 
 app.get("/status", function(request, response) {
-	response.send("RUNNING", 200);
+	response.send({'status': 'running', 'path': path}, 200);
 });
 
 console.log("Serving files from " + path + " at " + host + ":" + port);
