@@ -31,10 +31,11 @@ function ping(options) {
 
 function start(options) {
 	console.log("Starting server at %s", options.url);
-	var url = options.url,
-		out = fs.openSync('./serv.log', 'a'),
-		err = fs.openSync('./serv.log', 'a'),
-		args = [ path.resolve(path.dirname(module.filename), '../static-server.js'), options.port ],
+	var url = options.url;
+	var logdir = options.logdir?options.logdir+'/serv.log':'./serv.log';
+	var out = fs.openSync(logdir, 'a');
+	var	err = fs.openSync(logdir, 'a');
+	var args = [ path.resolve(path.dirname(module.filename), '../static-server.js'), options.port ],
 		child;
 
 		if (options.cwd) {
