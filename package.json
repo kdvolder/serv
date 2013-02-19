@@ -5,7 +5,11 @@
   "repository": "git@github.com:scothis/serv",
   "license": "MIT",
   "dependencies": {
-    "express": "~2.5"
+    "express": "~2.5",
+    "livereload-server": "~0.2",
+    "rest": "~0.8",
+    "optimist": "~0.3",
+    "open": "~0.0.2"
   },
   "bin": { "serv": "./bin/serv.js" }
 }
