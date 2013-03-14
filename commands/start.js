@@ -4,7 +4,10 @@ var fs = require('fs'),
 	errorCode = require('rest/interceptor/errorCode'),
 	timeout = require('rest/interceptor/timeout'),
 	retry = require('rest/interceptor/retry'),
-	client = retry(timeout(errorCode(), {timeout: 1000}), {max: 200}),
+	client = timeout(
+				retry(errorCode(), {max: 200}),
+				{timeout: 1000}
+	),
 	spawn = require('child_process').spawn;
 
 function exec(options) {
@@ -41,14 +44,14 @@ function start(options) {
 		if (options.cwd) {
 			args.push(options.cwd);
 		}
-		
+
 		child = spawn('node', args, {
 			detached: true,
 			stdio: ['ignore', out, err]
 		});
 
 	child.unref();
-	
+
 	ping(options).then(
 		function(response){
 			if (options.path) {
